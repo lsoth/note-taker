@@ -1,16 +1,12 @@
 const express = require ('express');
-const path = require ('path');
-const fs = require ('fs');
-const uuid =require
 const PORT = process.env.PORT || 3002;
 const app = express();
+const path = require ('path');
+const apiRouter = require('./routes/apiRoutes');
 
 // Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-//set up express
-
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 //route for homepage
@@ -20,25 +16,13 @@ app.get('/', (req, res) =>
 
 //route to open a note
 app.get('/notes', (req, res) => 
-  res.sendFile(path.join(__dirname, 'public/notes.html'))
+  res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-//api of notes that can be added using json
-app.get('/api/notes', (req, res) => 
-  res.sendFile(path.join(__dirname, '.db/note.json'))
-);
+//route to api
+app.use('/api', apiRouter)
 
-//posting a saved note
-app.post('/api/notes', (req,res) => {
-  const newNote ={
-    title: req.body.title,
-    text: req.body.text,
-    id: uuid(),
-  }
-})
-
-app.delete('api/notes/:id', (req,res)=>{
-})
+module.exports = app;
 
 app.listen(PORT, () =>
   console.log(`Note Taking at http://localhost:${PORT}`)
