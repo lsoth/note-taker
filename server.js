@@ -2,11 +2,8 @@ const express = require ('express');
 const path = require ('path');
 const fs = require ('fs');
 const uuid =require
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const app = express();
-
-
-const notes = require('./db/db.json');
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -38,6 +35,9 @@ app.post('/api/notes', (req,res) => {
     text: req.body.text,
     id: uuid(),
   }
+})
+
+app.delete('api/notes/:id', (req,res)=>{
 })
 
 app.listen(PORT, () =>
