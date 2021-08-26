@@ -19,13 +19,7 @@ apiRouter.post('/notes', (req,res) => {
 });
 
 
-apiRouter.delete('/notes/:id', (req,res)=>{
-})
+// apiRouter.delete('/notes/:id', (req,res)=>{
+// })
 
 module.exports = apiRouter;
-
-// const newNote ={
-//   title: req.body.title,
-//   text: req.body.text,
-//   id: uuid(),
-// }
